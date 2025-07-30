@@ -1,0 +1,54 @@
+from flask import Flask, request, jsonify
+from flask_cors import CORS
+from src.Analysis.Reccomandation_Models import kmeans_reccomender, data_preprocessing
+import pandas as pd
+
+app = Flask(__name__)
+CORS(app)   #CORS(app) allows any browser to access the backend
+
+df = pd.read_csv("src/Data_Cleaning/cleaned_data.csv")
+df_norm = data_preprocessing(df)
+
+def convert_normalized_price_to_original(normalized_price, df_original):
+    """
+    Convert normalized price back to original price format
+    """
+    # Get the original price range
+    min_price = df_original['final_price'].min()
+    max_price = df_original['final_price'].max()
+    
+    # Convert normalized price back to original scale
+    original_price = normalized_price * (max_price - min_price) + min_price
+    
+    # Format to 2 decimal places
+    return round(original_price, 2)
+
+@app.route('/recommend', methods=['GET'])
+def reccomend():
+    asin = request.args.get('asin')  # get asin parameter
+    num_recs = int(request.args.get('num_recs', 5)) 
+    if not asin:
+        return jsonify({'error': 'missing ASIN code'}), 400
+    try:
+        reccomendation = kmeans_reccomender(df_norm, asin, num_recs)
+        if reccomendation.empty:
+           return jsonify({'error': 'No similar books found or invalid ASIN'}), 200
+        
+        # Convert normalized prices back to original format
+        for idx, row in reccomendation.iterrows():
+            normalized_price = row['final_price']
+            original_price = convert_normalized_price_to_original(normalized_price, df)
+            reccomendation.at[idx, 'final_price'] = original_price
+        
+        result = reccomendation.to_dict(orient='records')
+        return jsonify({'recommendation': result})
+    except Exception as e:
+        print("ERROR:", e)
+        return jsonify({'error': str(e)}), 500
+
+# For production deployment
+if __name__ == '__main__':
+    app.run(debug=False, host='0.0.0.0', port=5000)
+    
+    
+    
