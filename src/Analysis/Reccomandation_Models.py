@@ -16,7 +16,7 @@ because the dataset does not contain user-book interaction data.
                         Book is popular if it has a lower main_rank value, it has many reviews and it has high average rating.
                         
 
-* 'knn_category_recommender': This content-based filtering model suggests books similar to a given one (by asin code) using the Nearest Neighbors
+* 'knn_category_recommender': This content-based filtering model suggests books similar to a given one (identified by asin code) using the Nearest Neighbors
                                algorithm within the same category.
                               Filtering is done by calculating the Euclidean distance between books based on their normalized prices and
                                 the number of normalized reviews,
@@ -24,9 +24,9 @@ because the dataset does not contain user-book interaction data.
                                 
 * 'kmeans-reccomender':     This content-based model suggests books similar to a given one (identified by its ASIN), based on final price and reviews count,
                               by using the K-Means clustering algorithm within the same category combined with dimensionality reduction via UMAP.
-                            The k-means algorithm divides a data set into k clusters by minimizing the intra-cluster distance.
+                            The k-means algorithm divides a dataset into k clusters by minimizing the intra-cluster distance.
                             This model first applies UMAP to reduce the dimensional data (price, reviews, category) to 2D and then K-Means
-                               to group them into clusters, then it searches for books in the same cluster and category as the input, excluding the book itself.
+                               to group them into clusters, then it searches for books in the same cluster and category as the input, excluding the given book.
                             Finally, it returns the closest ones to the input in the new UMAP space as recommendations.
                            
                                 

@@ -7,84 +7,13 @@ from Analysis import BookDataAnalysis,CorrelationAnalysis,Reccomandation_Models
 from Data_Visualization import Plots
 import pandas as pd
 
-filename = r"C:\\Users\\lenovo\\Documents\\analytics\\Amazon_Books_Data\\Amazon_popular_books_dataset.csv"
 
-output_path1 = r"C:\\Users\\lenovo\\Documents\\analytics\\Amazon_Books_Data\\src\\Data_Cleaning"
+filename = r"src/Data_Cleaning/cleaned_data.csv"
 
-save_dir = "C:\\Users\\lenovo\\Documents\\analytics\\Amazon_Books_Data\\src\\Data_Visualization"
+save_dir = "src/Data_Visualization"
+
 # Load the dataset
 df = Loader.load_dataset(filename)
-
-# Show missing values
-missing_values = Cleaner.show_nan(df)
-print(missing_values)
-
-# Delete unnecessary columns
-Cleaner.delete_columns(df)
-
-# Handle missing values in the price column
-df = Cleaner.handle_price(df)
-
-
-#Handle missing values in the number_of_sellers column
-df = Cleaner.handle_number_of_sellers(df)
-
-#Handle missing values in the format column
-df = Cleaner.handle_format(df)
-
-
-#handle the missing values in the columns item_weight,root_bs_rank,brand,best_sellers_rank
-df = Cleaner.handle_other_columns(df)
-
-print("\nDataframe after handling  columns:\n")
-missing_values = Cleaner.show_nan(df)
-print(missing_values)
-
-#parse item_weight from 'pounds|ounces' to grams
-df = Cleaner.parse_item_weight(df)
-print(df['item_weight'].head(5))
-
-#handle column best_sellers_rank
-df = Cleaner.handle_best_sellers_rank(df)
-
-
-
-df = Cleaner.add_stock_columns(df)
-
-
-df = Cleaner.get_book_format(df)
-
-df = Cleaner.handle_book_fomat(df)
-
-df = Cleaner.handle_timestamp(df)
-
-df = Cleaner.handle_rating(df)
-
-df = Cleaner.handle_categories(df)
-
-#normalize dataframe for the reccomandation models
-df_norm = Reccomandation_Models.data_preprocessing(df)
-
-#test the method filter_by_asin to reccomend top 10 books in the same category as the book with asin code 0060244887
-print("\nReccomandations by rating:")
-reccomandations = Reccomandation_Models.filter_by_category(df_norm,'0062024027',10)
-if not reccomandations.empty:
-    print(reccomandations.to_string(index = False))
-else:
-    print("No reccomandations available") 
-    
-#test the model knn_category_recommender
-print("\nNearest Neighbors Model:")
-reccomandations = Reccomandation_Models.knn_category_recommender(df_norm,'0060244887',10)
-if not reccomandations.empty:
-    print(reccomandations.to_string(index = False))
-else:
-    print("No reccomandations available") 
-    
-#test the model kmeans_reccomender
-print("\nKMeans reccomandation model:")
-recs = Reccomandation_Models.kmeans_reccomender(df_norm, '0060244887', num_recs = 10)
-print(recs)
 
 
 #exploratory analysis
@@ -147,7 +76,8 @@ print(num_books_per_seller)
 unique_ranges = df['num_reviews_range'].unique()
 print("Range recensioni:", unique_ranges)
 
-
+"""
+Data Visualization:
 Plots.top10_discounted_titles(df,save_dir)
 Plots.top10_cheapest_categories(df,save_dir)
 Plots.top10_expensive_categories(df,save_dir)
@@ -162,6 +92,7 @@ Plots.histogram_price(df,save_dir)
 Plots.reviews_range_vs_price(df,save_dir)
 Plots.show_book_availability(df,save_dir)
 Plots.show_not_available_titles(df,save_dir)
+"""
 
 print("\nLinear correlation between numerical columns:\n")
 correlation = CorrelationAnalysis.numerical_variables_correlation(df)
@@ -204,7 +135,3 @@ sellername_price_variability = CorrelationAnalysis.sellername_vs_price(df)
 if sellername_price_variability is not None:
     print(sellername_price_variability)
     
-    
-
-#save the new dataframe in the folder Data_Cleaning
-df.to_csv(os.path.join(output_path1, "cleaned_data.csv"), index=False)
