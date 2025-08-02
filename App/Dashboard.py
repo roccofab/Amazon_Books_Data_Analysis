@@ -9,8 +9,10 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 from src.Load_Data import Loader
 from src.Analysis import BookDataAnalysis
 
-
-df = Loader.load_dataset("src/Data_Cleaning/cleaned_data.csv")
+#get current directory path and build the path to the cleaned_data.csv file
+current_directory = os.path.dirname(os.path.abspath(__file__))
+path = os.path.join(current_directory, '..', 'src', 'Data_Cleaning', 'cleaned_data.csv')
+df = Loader.load_dataset(path)
 
 # create dash app
 app = dash.Dash(__name__)
