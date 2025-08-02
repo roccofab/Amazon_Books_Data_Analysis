@@ -1,3 +1,4 @@
+import os
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 from src.Analysis.Reccomandation_Models import kmeans_reccomender, data_preprocessing
@@ -6,7 +7,10 @@ import pandas as pd
 app = Flask(__name__)
 CORS(app)   #CORS(app) allows any browser to access the backend
 
-df = pd.read_csv("src/Data_Cleaning/cleaned_data.csv")
+#get current directory path and build the path to the cleaned_data.csv file
+current_directory = os.path.dirname(os.path.abspath(__file__))
+path = os.path.join(current_directory, '..', 'src', 'Data_Cleaning', 'cleaned_data.csv')
+df = pd.read_csv(path)
 df_norm = data_preprocessing(df)
 
 def convert_normalized_price_to_original(normalized_price, df_original):

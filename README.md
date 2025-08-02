@@ -165,7 +165,7 @@ One-way ANOVA tests followed by Tukey HSD post-hoc tests was applied to measure 
 - **Returns an html list containing the books reccomandations details.**
 
 ## 📊Dashboard
-### The dashboard, built with Plotly's Dash library, provides an interactive visualization of data.
+### The dashboard, built with Plotly's Dash library, provides an interactive visualization of data. You can check for the dashboard here: <br>https://amazon-dashboard-ycpv.onrender.com 
 
 
 
