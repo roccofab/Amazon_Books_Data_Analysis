@@ -9,7 +9,7 @@ document.getElementById('butt').onclick = function() {
     resultDiv.innerHTML = '';
 
     //Make a GET request to the Flask server endpoint passing the ASIN code
-    fetch(`http://localhost:5000/recommend?asin=${asin}`)
+    fetch(`/recommend?asin=${asin}`)
     //cast server response to json
         .then(response => {
         console.log("Raw response:", response);  // 👈 Debug della risposta
