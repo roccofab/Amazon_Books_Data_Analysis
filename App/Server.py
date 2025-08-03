@@ -5,9 +5,18 @@ from flask import Flask, request, jsonify
 from flask_cors import CORS
 from src.Analysis.Reccomandation_Models import kmeans_reccomender, data_preprocessing
 import pandas as pd
+from flask import send_from_directory
 
 app = Flask(__name__)
 CORS(app)   #CORS(app) allows any browser to access the backend
+
+@app.route('/')
+def serve_index():
+    return send_from_directory(os.path.join(current_directory), 'index.html')
+
+@app.route('/<path:path>')
+def serve_static(path):
+    return send_from_directory(os.path.join(current_directory), path)
 
 #get current directory path and build the path to the cleaned_data.csv file
 current_directory = os.path.dirname(os.path.abspath(__file__))
