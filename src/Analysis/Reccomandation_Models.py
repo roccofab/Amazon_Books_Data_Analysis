@@ -1,4 +1,4 @@
-import hdbscan
+#import hdbscan
 import numpy as np
 import pandas as pd
 from sklearn.cluster import KMeans
@@ -186,8 +186,9 @@ def knn_category_recommender(df, inp_asin, num_recs = 5):
     
     return recommended[['asin', 'title', 'final_price', 'reviews_count', 'main_category']]
 
+"""
 def hdbscan_reccomender(df, inp_asin, num_recs = 5):
-    """
+   
     Content-Based model that recommends books similar to a given one (identified by its ASIN)
     using HDBSCAN clustering on UMAP-reduced numerical features.
     
@@ -217,7 +218,7 @@ def hdbscan_reccomender(df, inp_asin, num_recs = 5):
         
     Returns:
         pd.DataFrame: A DataFrame containing the recommended books with relevant columns.
-    """
+    
     
     df2 = df.copy()
     
@@ -273,6 +274,7 @@ def hdbscan_reccomender(df, inp_asin, num_recs = 5):
     recommended = same_cluster_books.sort_values(by='distance').head(num_recs)
 
     return recommended[['asin', 'title', 'final_price', 'reviews_count', 'rating', 'main_category']]
+"""
 
 def kmeans_reccomender(df,inp_asin,num_recs = 5):
     """
