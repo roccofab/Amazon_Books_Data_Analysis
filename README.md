@@ -155,14 +155,15 @@ One-way ANOVA tests followed by Tukey HSD post-hoc tests was applied to measure 
 3. **kmeans_reccomender:** This content-based model suggests books similar to a given one (identified by its ASIN), based on final price and reviews count, by using the K-Means clustering algorithm within the same category combined with dimensionality reduction via UMAP. The k-means algorithm divides a dataset into k clusters by minimizing the intra-cluster distance.
 
 ## 🌐Web Application:
-### This application provides a basic frontend for getting recommendations. The Flask backend exposes a REST API that:
+### This application https://reccomender.onrender.com provides a basic frontend for getting recommendations. The Flask backend exposes a REST API that:
 - **Accept Requests:** the endpoint/reccomend receives the asin code as input.
 
 - **Applies the recommendation model based on the KMeans clustering algorithm.**
 
 - **Cast the normalized prices to the original prices and returns a JSON object with the list of recommended books.**
 
-- **Returns an html list containing the books reccomandations details.**
+- **Returns an html list containing the books reccomandations details and the links that fetches to the Amazon address.**
+
 
 ## 📊Dashboard
 ### The dashboard, built with Plotly's Dash library, provides an interactive visualization of data. You can check for the dashboard here: <br>https://amazon-dashboard-ycpv.onrender.com 
