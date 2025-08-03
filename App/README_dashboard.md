@@ -28,26 +28,25 @@ Dashboard includes 8 Plots:
 ###  **Tooltip**: Show detailed values on mouseover.
 
 
-## Usage:
+## Local Setup:
 
 1. 
    ```
-   pip install dash plotly pandas
+   git clone https://github.com/roccofab/Amazon_Books_Data_Analysis.git
    ```
 
 2. 
    ```
-   cd App
+   cd Amazon_Books_Data_Analysis/App
    ```
 
 3. 
    ```
-   python dashboard.py
+   pip install -r requirements.txt
    ```
 
-4. Open the browser and type the following URL:
-   ```
-   http://localhost:8050
+4. ```
+   python Dashboard.py
    ```
 
 
@@ -57,4 +56,4 @@ Dashboard includes 8 Plots:
 - **Visualization**: Plotly Graph Objects
 - **Style**: CSS 
 - **Data**: Pandas DataFrame
-- **Connection**: 8050 port 
+- **Connection**: Dynamic Port(assigned by Render hosting platform)

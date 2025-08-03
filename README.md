@@ -1,4 +1,5 @@
-# EDA on Amazon Books and Reccomender System using Python
+# Amazon Books Data Analysis & Recommendation System
+
 ### Full Data Science Project that analyzes a medium/large dataset of books available on Amazon. The project covers the entire data pipeline—from data cleaning and exploratory analysis to machine learning and web visualization.The models and analyses focus on book features because the dataset does not contain information on sales and customers, but only details on books, prices, reviews, etc. <br> It Includes:<br>
 
 -  Data exploration & visualization
@@ -154,15 +155,23 @@ One-way ANOVA tests followed by Tukey HSD post-hoc tests was applied to measure 
 
 3. **kmeans_reccomender:** This content-based model suggests books similar to a given one (identified by its ASIN), based on final price and reviews count, by using the K-Means clustering algorithm within the same category combined with dimensionality reduction via UMAP. The k-means algorithm divides a dataset into k clusters by minimizing the intra-cluster distance.
 
-## 🌐Web Application:
-### This application https://reccomender.onrender.com provides a basic frontend for getting recommendations. The Flask backend exposes a REST API that:
-- **Accept Requests:** the endpoint/reccomend receives the asin code as input.
+## 🌐 Web Application & API Documentation
+### This project includes a production-ready web application, deployed at https://reccomender.onrender.com, which provides a user-friendly interface for book recommendations. The backend is powered by Flask and exposes a RESTful API for programmatic access to the recommendation engine.
 
-- **Applies the recommendation model based on the KMeans clustering algorithm.**
+#### Application Overview:
 
-- **Cast the normalized prices to the original prices and returns a JSON object with the list of recommended books.**
+The frontend allows users to input an Amazon ASIN code and receive personalized book recommendations.
+The backend processes requests, applies the KMeans-based recommendation model, and returns a list of similar books with relevant details.
+Recommendations are computed using normalized features such as price, reviews count, and category, ensuring relevant and different suggestions. The book features are converted back to their original format before being returned to the frontend.
 
-- **Returns an html list containing the books reccomandations details and the links that fetches to the Amazon address.**
+#### API Endpoint:
+
+The Flask backend exposes a RESTful API endpoint (/recommend) that accepts an ASIN as input and returns a list of recommended books based on KMeans-Clustering algorithm.
+Endpoint: /recommend
+
+Method: GET
+
+Query Parameter: asin code(string)
 
 
 ## 📊Dashboard
